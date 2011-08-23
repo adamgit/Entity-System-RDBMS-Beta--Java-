@@ -55,6 +55,7 @@ public class MetaEntity
 		if( defaultEntityManager == null )
 			throw new IllegalArgumentException( "There is no global EntityManager; create a new EntityManager before creating Entity's" );
 		
+		parentEntityManager = defaultEntityManager;
 		entity = defaultEntityManager.createEntity();	
 	}
 	
@@ -66,6 +67,7 @@ public class MetaEntity
 		if( defaultEntityManager == null )
 			throw new IllegalArgumentException( "There is no global EntityManager; create a new EntityManager before creating Entity's" );
 		
+		parentEntityManager = defaultEntityManager;
 		entity = e;	
 	}
 	
@@ -127,6 +129,7 @@ public class MetaEntity
 	 */
 	public <T extends Component> T get( Class<T> type )
 	{
+		
 		return parentEntityManager.getComponent( entity, type );
 	}
 	
