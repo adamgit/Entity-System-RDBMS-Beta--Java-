@@ -86,6 +86,8 @@ public class MetaEntity
 	{
 		this( components ); 
 		
+		parentEntityManager.setEntityName(entity, n);
+		
 		internalName = n;
 	}
 	
