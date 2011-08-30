@@ -2,8 +2,6 @@ package com.wikidot.entitysystems.rdbmsbeta;
 
 import java.util.*;
 
-import sun.tools.tree.*;
-
 /**
  * The MetaEntity is a smarter, more powerful way of creating and handling Entities in an Entity System.
  * 
@@ -55,6 +53,8 @@ public class MetaEntity
 		if( defaultEntityManager == null )
 			throw new IllegalArgumentException( "There is no global EntityManager; create a new EntityManager before creating Entity's" );
 		
+		parentEntityManager = defaultEntityManager; 
+		
 		entity = defaultEntityManager.createEntity();	
 	}
 	
@@ -65,6 +65,8 @@ public class MetaEntity
 	{
 		if( defaultEntityManager == null )
 			throw new IllegalArgumentException( "There is no global EntityManager; create a new EntityManager before creating Entity's" );
+		
+		parentEntityManager = defaultEntityManager;
 		
 		entity = e;	
 	}
