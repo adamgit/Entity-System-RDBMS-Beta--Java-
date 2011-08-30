@@ -14,12 +14,14 @@ public class EntityManager
 {
 	boolean frozen;
 	List<UUID> allEntities;
+	HashMap<UUID, String> entityHumanReadableNames;
 	HashMap<Class, HashMap<UUID, ? extends Component>> componentStores;
 
 	public EntityManager()
 	{
 		frozen = false;
 		allEntities = new LinkedList<UUID>();
+		entityHumanReadableNames = new HashMap<UUID, String>();
 		componentStores = new HashMap<Class, HashMap<UUID, ? extends Component>>();
 	}
 
@@ -37,10 +39,32 @@ public class EntityManager
 								+ componentType);
 
 			T result = (T) store.get(entity);
+			
 			if (result == null)
+			{
+				/** DEFAULT: normal debug info:
+				*/
 				throw new IllegalArgumentException("GET FAIL: " + entity
+						+ "(name:"+nameFor(entity)+")"
 						+ " does not possess Component of class\n   missing: "
 						+ componentType);
+				/** OPTIONAL: more detailed debug info:
+				 * 
+				 *
+				StringBuffer sb = new StringBuffer();
+				for( UUID e : store.keySet() )
+				{
+					sb.append( "\nUUID: "+e+" === "+store.get(e) );
+				}
+				
+				throw new IllegalArgumentException("GET FAIL: " + entity
+						+ "(name:"+nameFor(entity)+")"
+						+ " does not possess Component of class\n   missing: "
+						+ componentType
+						+ "TOTAL STORE FOR THIS COMPONENT CLASS : "+ sb.toString()
+						);
+						*/
+			}
 
 			return result;
 		}
@@ -62,6 +86,7 @@ public class EntityManager
 			T result = (T) store.remove(entity);
 			if (result == null)
 				throw new IllegalArgumentException("REMOVE FAIL: " + entity
+						+ "(name:"+nameFor(entity)+")"
 						+ " does not possess Component of class\n   missing: "
 						+ component.getClass());
 		}
@@ -153,6 +178,28 @@ public class EntityManager
 		allEntities.add(uuid);
 
 		return uuid;
+	}
+	
+	public UUID createEntity( String name )
+	{
+		if (frozen)
+			return null;
+
+		final UUID uuid = UUID.randomUUID();
+		allEntities.add(uuid);
+		entityHumanReadableNames.put(uuid, name);
+
+		return uuid;
+	}
+	
+	public void setEntityName( UUID entity, String name )
+	{
+		entityHumanReadableNames.put(entity, name);
+	}
+	
+	public String nameFor( UUID entity )
+	{
+		return entityHumanReadableNames.get( entity );
 	}
 
 	public void killEntity(UUID entity)
