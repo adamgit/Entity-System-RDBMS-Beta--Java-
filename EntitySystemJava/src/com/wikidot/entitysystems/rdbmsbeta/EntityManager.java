@@ -1,5 +1,6 @@
 package com.wikidot.entitysystems.rdbmsbeta;
 
+import java.io.*;
 import java.util.*;
 
 /**
@@ -10,7 +11,7 @@ import java.util.*;
  * we use the class type of each subclass instead. This is safer.
  */
 
-public class EntityManager
+public class EntityManager implements Serializable
 {
 	boolean frozen;
 	List<UUID> allEntities;
