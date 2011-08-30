@@ -67,6 +67,21 @@ public class EntityManager
 		}
 	}
 	
+	public <T extends Component> boolean hasComponent(UUID entity,
+			Class<T> componentType)
+	{
+		synchronized (componentStores)
+		{
+			HashMap<UUID, ? extends Component> store = componentStores
+					.get(componentType);
+
+			if (store == null)
+				return false;
+			else
+				return store.containsKey(entity);
+		}
+	}
+	
 	/**
 	 * WARNING: low performance implementation!
 	 * 
