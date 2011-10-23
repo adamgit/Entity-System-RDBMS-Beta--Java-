@@ -135,7 +135,7 @@ public class EntityManager implements Serializable
 		}
 	}
 
-	public <T extends Component> List<T> getAllComponentsOfType(
+	public <T extends Component> Collection<T> getAllComponentsOfType(
 			Class<T> componentType)
 	{
 		synchronized (componentStores)
@@ -146,7 +146,7 @@ public class EntityManager implements Serializable
 			if (store == null)
 				return new LinkedList<T>();
 
-			return (List<T>) store.values();
+			return (Collection<T>) store.values();
 		}
 	}
 
