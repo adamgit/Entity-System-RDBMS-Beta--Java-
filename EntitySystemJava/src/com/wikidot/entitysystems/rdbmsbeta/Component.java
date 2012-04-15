@@ -1,5 +1,7 @@
 package com.wikidot.entitysystems.rdbmsbeta;
 
+import java.io.*;
+
 /**
  * Standard design: c.f. http://entity-systems.wikidot.com/rdbms-with-code-in-systems
  * 
@@ -7,7 +9,7 @@ package com.wikidot.entitysystems.rdbmsbeta;
  * of each subclass instead. This is safer.
  */
 
-public interface Component
+public interface Component extends Serializable
 {
 	
 }
