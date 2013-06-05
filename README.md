@@ -12,6 +12,9 @@ What is an Entity System?
 
 This is a "almost as simple as possible" implementation of the ideas in this series of blog posts:
 
+http://t-machine.org/index.php/2007/09/03/entity-systems-are-the-future-of-mmog-development-part-1/
+
+It's a method for designing and programming games with lots of benefits in design and performance and development-time.
 
 Using this on real projects
 -----
